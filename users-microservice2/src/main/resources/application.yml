@@ -1,9 +1,9 @@
-#  application.yml TasksMicroserviceApplication d
+#  application.yml UsersMicroserviceApplication
 spring:
   application:
-    name: tasks-microservice
+    name: users-microservice
   datasource:
-    url: jdbc:mysql://localhost:3306/tasks_microservice_db?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/users_microservice_db?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC
     username: root
     driver-class-name: com.mysql.cj.jdbc.Driver
 
@@ -23,4 +23,4 @@ eureka:
     prefer-ip-address: true
 
 server:
-  port: 8081
+  port: 8082
