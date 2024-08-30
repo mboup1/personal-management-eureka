@@ -13,6 +13,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/tasks")
 @RequiredArgsConstructor
+//service
 public class TaskController {
 
     private final TaskService taskService;
@@ -26,6 +27,7 @@ public class TaskController {
     public ResponseEntity<Task> getTaskById(@PathVariable Long id) {
         Optional<Task> task = taskService.getTaskById(id);
         return task.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+
     }
 
     @PostMapping
