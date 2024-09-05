@@ -29,15 +29,6 @@ services:
     networks:
       - my-network
 
-#  prometheus:
-#    image: prom/prometheus
-#    container_name: prometheus
-#    restart: unless-stopped
-#    ports:
-#      - "9090:9090"
-#    volumes:
-#      - ./docker/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-
   users-microservice:
     build:
       context: ./users-microservice
@@ -89,6 +80,17 @@ services:
       - my-network
     environment:
       EUREKA_SERVER_HOST: eureka-server
+
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./docker/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - my-network
 
 volumes:
   mysqldata:
