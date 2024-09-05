@@ -15,7 +15,8 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class TasksApiService {
-    public static final String BASE_URL = "http://localhost:8081/";
+    public static final String BASE_URL = "http://tasks-microservice:8081/";
+//    public static final String BASE_URL = "http://localhost:8081/";
 
     private RestClient restClient = RestClient.builder().baseUrl(BASE_URL).build();
 
