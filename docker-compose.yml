@@ -76,10 +76,10 @@ services:
       - tasks-microservice
     ports:
       - "8080:8080"
-    networks:
-      - my-network
     environment:
       EUREKA_SERVER_HOST: eureka-server
+    networks:
+      - my-network
 
   prometheus:
     image: prom/prometheus
@@ -92,8 +92,49 @@ services:
     networks:
       - my-network
 
+  tempo:
+    image: grafana/tempo
+    container_name: tempo
+    ports:
+      - "3200:3200"
+    volumes:
+      - ./docker/tempo/tempo.yml:/etc/tempo.yaml:ro
+      - ./docker/tempo/tempo-data:/tmp/tempo
+    networks:
+      - my-network
+
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: zipkin
+    ports:
+      - "9411:9411"
+    networks:
+      - my-network
+
+  loki:
+    image: grafana/loki:main
+    container_name: loki
+    command: [ "-config.file=/etc/loki/local-config.yaml" ]
+    ports:
+      - "3100:3100"
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./docker/grafana:/etc/grafana/provisioning/datasources:ro
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=password
+    networks:
+      - my-network
+
+
 volumes:
   mysqldata:
+  tempo-data:
 
 networks:
   my-network:
